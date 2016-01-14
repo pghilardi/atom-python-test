@@ -1,0 +1,16 @@
+{
+  "name": "atom-python-test",
+  "main": "./lib/atom-python-test",
+  "version": "0.0.0",
+  "description": "Run py.test tests",
+  "keywords": [
+  ],
+  "repository": "https://github.com/atom/atom-python-test",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+    "atom-space-pen-views" : "latest"
+  }
+}
