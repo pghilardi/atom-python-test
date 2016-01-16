@@ -8,7 +8,7 @@
 
 ## To-Do List
 - [x] Call py.test executable to run a python file.
-- [x] Show the output on a right panel closable or a pane.
+- [x] Show the output on a bottom closable pane.
 - [ ] Add support to run test under cursor.
 - [ ] Add support to run all project tests.
 - [ ] Format the output and separate the output for each test.
