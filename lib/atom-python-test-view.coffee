@@ -4,25 +4,34 @@ module.exports =
   class AtomPythonTestView extends ScrollView
 
     message: ''
+    maximized: false
 
     @content: ->
-      @div =>
-        @pre class: 'output'
+      @div class: 'atom-python-test-view native-key-bindings', outlet: 'atomTestView', tabindex: -1, =>
+        @div class: 'btn-toolbar', outlet:'toolbar', =>
+          @button outlet: 'closeBtn', class: 'btn inline-block-tight right', click: 'destroy', =>
+            @span class: 'icon icon-x'
+        @pre class: 'output', outlet: 'output'
 
     initialize: ->
-      super
-      @panel ?= atom.workspace.addRightPanel(item: this)
+      @panel ?= atom.workspace.addBottomPanel(item: this)
       @panel.hide()
 
     addLine: (line) ->
       @message += line
       @find(".output").text(@message)
-      @show()
+
+    clear: ->
+      @message = ''
 
     finish: ->
       console.log('finish')
 
+    destroy: ->
+      @panel.hide()
+
     reset: -> @message = defaultMessage
 
     toggle: ->
+      @find(".output").height(400)
       @panel.show()

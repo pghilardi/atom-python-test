@@ -32,12 +32,16 @@ module.exports = AtomPythonTest =
     file = editor?.buffer.file
     filePath = file?.path
 
+    @atomPythonTestView.clear()
+
     args = ['-s', filePath]
     command = 'py.test'
     stdout = (output) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
       atomPythonTestView.addLine(output)
+
+    exit = (code) ->
+      atomPythonTestView = AtomPythonTest.atomPythonTestView
       atomPythonTestView.toggle()
 
-    exit = (code) -> console.log("ps -ef exited with #{code}")
     process = new BufferedProcess({command, args, stdout, exit})
