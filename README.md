@@ -4,7 +4,11 @@
 
 ## Requirements
 
-* You need py.test installed to use this package: pip install pytest
+* You need py.test installed to use this package: 
+
+    ```
+    pip install pytest
+    ```
 
 ## To-Do List
 - [x] Call py.test executable to run a python file.
