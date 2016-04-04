@@ -33,6 +33,7 @@ module.exports = AtomPythonTest =
     filePath = file?.path
 
     @atomPythonTestView.clear()
+    @atomPythonTestView.toggle()
 
     args = ['-s', filePath]
     command = 'py.test'
@@ -42,6 +43,5 @@ module.exports = AtomPythonTest =
 
     exit = (code) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
-      atomPythonTestView.toggle()
 
     process = new BufferedProcess({command, args, stdout, exit})

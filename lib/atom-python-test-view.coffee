@@ -7,15 +7,15 @@ module.exports =
     maximized: false
 
     @content: ->
-      @div class: 'atom-python-test-view native-key-bindings', outlet: 'atomTestView', tabindex: -1, =>
+      @div class: 'atom-python-test-view native-key-bindings', outlet: 'atomTestView', tabindex: -1, overflow: "auto", =>
         @div class: 'btn-toolbar', outlet:'toolbar', =>
-          @button outlet: 'closeBtn', class: 'btn inline-block-tight right', click: 'destroy', =>
+          @button outlet: 'closeBtn', class: 'btn inline-block-tight right', click: 'destroy', style: 'float: right', =>
             @span class: 'icon icon-x'
         @pre class: 'output', outlet: 'output'
 
     initialize: ->
       @panel ?= atom.workspace.addBottomPanel(item: this)
-      @panel.hide()
+      @addLine 'Running tests...'
 
     addLine: (line) ->
       @message += line
@@ -33,5 +33,5 @@ module.exports =
     reset: -> @message = defaultMessage
 
     toggle: ->
-      @find(".output").height(400)
+      @find(".output").height(500)
       @panel.show()
