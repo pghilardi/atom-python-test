@@ -2,10 +2,14 @@
   "name": "atom-python-test",
   "main": "./lib/atom-python-test",
   "version": "0.1.0",
-  "description": "Run py.test tests",
+  "description": "Run py.test tests using Python",
   "keywords": [
+    "python",
+    "tests",
+    "py.test",
+    "pytest"
   ],
-  "repository": "https://github.com/atom/atom-python-test",
+  "repository": "https://github.com/pghilardi/atom-python-test",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
