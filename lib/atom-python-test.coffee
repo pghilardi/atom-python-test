@@ -15,6 +15,7 @@ module.exports = AtomPythonTest =
 
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-all-tests': => @runAllTests()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-test-under-cursor': => @runTestUnderCursor()
 
   deactivate: ->
     @subscriptions.dispose()
@@ -23,19 +24,12 @@ module.exports = AtomPythonTest =
   serialize: ->
     atomPythonTestViewState: @atomPythonTestView.serialize()
 
-  runAllTests: ->
-    console.log 'model: Run all tests'
-
+  executePyTest: (args) ->
     {BufferedProcess} = require 'atom'
-
-    editor = atom.workspace.getActivePaneItem()
-    file = editor?.buffer.file
-    filePath = file?.path
 
     @atomPythonTestView.clear()
     @atomPythonTestView.toggle()
 
-    args = ['-s', filePath]
     command = 'py.test'
     stdout = (output) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
@@ -45,3 +39,20 @@ module.exports = AtomPythonTest =
       atomPythonTestView = AtomPythonTest.atomPythonTestView
 
     process = new BufferedProcess({command, args, stdout, exit})
+
+  runTestUnderCursor: ->
+    editor = atom.workspace.getActiveTextEditor()
+    file = editor?.buffer.file
+    filePath = file?.path
+    selectedText = editor.getSelectedText()
+
+    filePath = filePath + '::' + selectedText
+    args = [filePath, '-s']
+    @executePyTest(args)
+
+  runAllTests: ->
+    editor = atom.workspace.getActivePaneItem()
+    file = editor?.buffer.file
+    filePath = file?.path
+    args = ['-s', filePath]
+    @executePyTest(args)

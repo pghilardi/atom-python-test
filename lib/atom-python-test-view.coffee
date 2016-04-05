@@ -15,7 +15,6 @@ module.exports =
 
     initialize: ->
       @panel ?= atom.workspace.addBottomPanel(item: this)
-      @addLine 'Running tests...'
 
     addLine: (line) ->
       @message += line
@@ -34,4 +33,5 @@ module.exports =
 
     toggle: ->
       @find(".output").height(500)
+      @addLine 'Running tests...'
       @panel.show()
