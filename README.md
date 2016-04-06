@@ -14,15 +14,10 @@
     
 ## Usage
 
-1) Running all tests (Ctrl + Alt + T):
+1) Running all tests ```(Ctrl + Alt + T)```:
+2) Run test under cursor ```(Ctrl + Alt + C)```:
 
-![alt text](https://cloud.githubusercontent.com/assets/1611808/14301263/b995f160-fb6c-11e5-810d-2ee72b436745.png "Run all tests")
-
-![alt text](https://cloud.githubusercontent.com/assets/1611808/14301265/b999431a-fb6c-11e5-986e-389f19401351.png "Output")
-
-2) Run test under cursor (Ctrl + Alt + C):
-
-![alt text](https://cloud.githubusercontent.com/assets/1611808/14301264/b998e712-fb6c-11e5-8995-f71c2904970b.png "Run test under cursor")
+![Run tests](https://cloud.githubusercontent.com/assets/1611808/14330216/ea1891e0-fc15-11e5-8190-696152c77c64.gif)
 
 ## To-Do List
 - [x] Call py.test executable to run a python file.
