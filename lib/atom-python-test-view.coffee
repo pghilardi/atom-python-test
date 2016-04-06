@@ -33,5 +33,5 @@ module.exports =
 
     toggle: ->
       @find(".output").height(500)
-      @addLine 'Running tests...'
+      @addLine 'Running tests... \n'
       @panel.show()

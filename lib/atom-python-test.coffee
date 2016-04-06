@@ -46,9 +46,27 @@ module.exports = AtomPythonTest =
     filePath = file?.path
     selectedText = editor.getSelectedText()
 
-    filePath = filePath + '::' + selectedText
-    args = [filePath, '-s']
-    @executePyTest(args)
+    class_re = /class \w*\((\w*.*\w*)*\):/
+    buffer = editor.buffer
+    for line, index in buffer.lines
+      startIndex = line.search(class_re)
+      if startIndex != -1
+        endIndex = line.indexOf('(')
+        startIndex = startIndex + 6
+        className = line[startIndex...endIndex]
+        filePath = filePath + '::' + className
+
+    re = /test_\w*/;
+    lineNumber = editor.getCursorBufferPosition().row
+    content = editor.buffer.lines[lineNumber]
+    endIndex = content.indexOf('(')
+    startIndex = content.search(re)
+    testName = content[startIndex...endIndex]
+    console.log(testName)
+    if testName
+      filePath = filePath + '::' + testName
+      args = [filePath, '-s']
+      @executePyTest(args)
 
   runAllTests: ->
     editor = atom.workspace.getActivePaneItem()
