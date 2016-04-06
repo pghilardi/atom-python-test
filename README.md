@@ -14,8 +14,9 @@
     
 ## Usage
 
-1) Running all tests ```(Ctrl + Alt + T)```:
-2) Run test under cursor ```(Ctrl + Alt + C)```:
+1) Running all tests ```(Ctrl + Alt + T)```
+
+2) Run test under cursor ```(Ctrl + Alt + C)```
 
 ![Run tests](https://cloud.githubusercontent.com/assets/1611808/14330216/ea1891e0-fc15-11e5-8190-696152c77c64.gif)
 
