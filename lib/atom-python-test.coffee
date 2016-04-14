@@ -56,7 +56,7 @@ module.exports = AtomPythonTest =
         className = line[startIndex...endIndex]
         filePath = filePath + '::' + className
 
-    re = /test_\w*/;
+    re = /test\w*/;
     lineNumber = editor.getCursorBufferPosition().row
     content = editor.buffer.lines[lineNumber]
     endIndex = content.indexOf('(')
