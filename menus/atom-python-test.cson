@@ -19,7 +19,7 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'atom-python-test'
+      'label': 'Atom Python Test'
       'submenu': [
         {
           'label': 'Run all tests'
