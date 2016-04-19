@@ -4,6 +4,8 @@
 
 * Run py.tests tests on Atom.
 
+This project is on initial development. Feel free to contribute reporting bugs, improvements or creating pull requests.
+
 ## Requirements
 
 * You need py.test installed to use this package: 
@@ -28,4 +30,3 @@
 - [ ] Add support to run all project tests.
 - [ ] Format the output and separate the output for each test.
 
-This project is on initial development. Feel free to contribute reporting bugs, improvements or creating pull requests.
