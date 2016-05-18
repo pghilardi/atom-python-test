@@ -6,6 +6,16 @@ module.exports = AtomPythonTest =
   modalPanel: null
   subscriptions: null
 
+  config:
+    pytestPath:
+      type: 'string'
+      default: 'py.test'
+      title: 'Path to py.test'
+      description: '''
+      Optional. Set it if default values are not working for you or you want to use specific
+      py.test version. For example: '/usr/local/bin/py.test'
+      '''
+
   activate: (state) ->
 
     @atomPythonTestView = new AtomPythonTestView(state.atomPythonTestViewState)
@@ -30,7 +40,7 @@ module.exports = AtomPythonTest =
     @atomPythonTestView.clear()
     @atomPythonTestView.toggle()
 
-    command = 'py.test'
+    command = atom.config.get('atom-python-test.pytestPath')
     stdout = (output) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
       atomPythonTestView.addLine(output)
@@ -74,10 +84,9 @@ module.exports = AtomPythonTest =
     endIndex = content.indexOf('(')
     startIndex = content.search(re)
     testName = content[startIndex...endIndex]
-    console.log(testName)
+
     if testName
       filePath = filePath + '::' + testName
-      console.log(filePath)
       args = [filePath, '-s']
       @executePyTest(args)
 
