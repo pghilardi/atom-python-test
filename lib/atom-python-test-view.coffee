@@ -15,6 +15,7 @@ module.exports =
 
     initialize: ->
       @panel ?= atom.workspace.addBottomPanel(item: this)
+      @panel.hide()
 
     addLine: (line) ->
       @message += line
