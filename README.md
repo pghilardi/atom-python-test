@@ -13,7 +13,15 @@ This project is on initial development. Feel free to contribute reporting bugs, 
     ```
     pip install pytest
     ```
-    
+
+## Configuration
+
+It's possible to customize a specific path to py.test in the settings of Atom Python Test. The default path is ```py.test```.
+
+When using virtualenv, the recommended workflow is:
+1) Activate your virtualenv on terminal.
+2) Run atom editor, so this plug-in will get the virtualenv py.test version.
+
 ## Usage
 
 1) Running all tests ```(Ctrl + Alt + T)```
