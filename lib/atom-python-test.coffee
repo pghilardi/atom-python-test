@@ -6,16 +6,6 @@ module.exports = AtomPythonTest =
   modalPanel: null
   subscriptions: null
 
-  config:
-    pytestPath:
-      type: 'string'
-      default: 'python -m pytest'
-      title: 'Path to py.test'
-      description: '''
-      Optional. Set it if default values are not working for you or you want to use specific
-      py.test version. For example: '/usr/local/bin/py.test'
-      '''
-
   activate: (state) ->
 
     @atomPythonTestView = new AtomPythonTestView(state.atomPythonTestViewState)
@@ -34,13 +24,12 @@ module.exports = AtomPythonTest =
   serialize: ->
     atomPythonTestViewState: @atomPythonTestView.serialize()
 
-  executePyTest: (args) ->
+  executePyTest: (filePath) ->
     {BufferedProcess} = require 'atom'
 
     @atomPythonTestView.clear()
     @atomPythonTestView.toggle()
 
-    command = atom.config.get('atom-python-test.pytestPath')
     stdout = (output) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
       atomPythonTestView.addLine(output)
@@ -48,7 +37,10 @@ module.exports = AtomPythonTest =
     exit = (code) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
 
+    command = 'python'
+    args = ['-m', 'pytest', filePath, '-s']
     process = new BufferedProcess({command, args, stdout, exit})
+
 
   runTestUnderCursor: ->
     editor = atom.workspace.getActiveTextEditor()
@@ -87,12 +79,10 @@ module.exports = AtomPythonTest =
 
     if testName
       filePath = filePath + '::' + testName
-      args = [filePath, '-s']
-      @executePyTest(args)
+      @executePyTest(filePath)
 
   runAllTests: ->
     editor = atom.workspace.getActivePaneItem()
     file = editor?.buffer.file
     filePath = file?.path
-    args = ['-s', filePath]
-    @executePyTest(args)
+    @executePyTest(filePath)
