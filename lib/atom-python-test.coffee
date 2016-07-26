@@ -9,7 +9,7 @@ module.exports = AtomPythonTest =
   config:
     pytestPath:
       type: 'string'
-      default: 'py.test'
+      default: 'python -m pytest'
       title: 'Path to py.test'
       description: '''
       Optional. Set it if default values are not working for you or you want to use specific
