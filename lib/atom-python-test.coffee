@@ -36,6 +36,11 @@ module.exports = AtomPythonTest =
 
     exit = (code) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
+      if code != 0
+        console.log 'An error occured on atom-python-test'
+        atomPythonTestView.addLine('\n Error while executing tests!
+          Check that py.test is installed and in your path!')
+
 
     command = 'python'
     args = ['-m', 'pytest', filePath, '-s']

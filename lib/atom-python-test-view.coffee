@@ -33,6 +33,6 @@ module.exports =
     reset: -> @message = defaultMessage
 
     toggle: ->
-      @find(".output").height(500)
+      @find(".output").height(300)
       @addLine 'Running tests... \n'
       @panel.show()
