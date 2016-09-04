@@ -27,23 +27,30 @@ module.exports = AtomPythonTest =
   executePyTest: (filePath) ->
     {BufferedProcess} = require 'atom'
 
+    @tmp = require('tmp');
+
     @atomPythonTestView.clear()
     @atomPythonTestView.toggle()
 
     stdout = (output) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
-      atomPythonTestView.addLine(output)
+      atomPythonTestView.addLine output
 
     exit = (code) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
-      if code != 0
-        console.log 'An error occured on atom-python-test'
-        atomPythonTestView.addLine('\n Error while executing tests!
-          Check that py.test is installed and in your path!')
 
+      junitViewer = require('junit-viewer')
+      parsedResults = junitViewer.parse(AtomPythonTest.testResultsFilename.name)
+
+      if parsedResults.junit_info.tests.error > 0 and code != 0
+        atomPythonTestView.addLine "An error occured while executing py.test.
+          Check if py.test is installed and is in your path."
+
+    @testResultsFilename = @tmp.fileSync({prefix: 'results', keep : true, postfix: '.xml'});
 
     command = 'python'
-    args = ['-m', 'pytest', filePath, '-s']
+    args = ['-m', 'pytest', filePath, '--verbose', '--junit-xml=' + @testResultsFilename.name]
+
     process = new BufferedProcess({command, args, stdout, exit})
 
 
