@@ -1,7 +1,7 @@
 {
   "name": "atom-python-test",
   "main": "./lib/atom-python-test",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Run py.test tests using Python",
   "keywords": [
     "python",
