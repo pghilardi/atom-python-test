@@ -17,7 +17,7 @@ This project is on initial development. Feel free to contribute reporting bugs, 
 When using virtualenv, the recommended workflow is:
 
 * Activate your virtualenv on terminal.
-* Run atom editor, so this plug-in will get the virtualenv py.test version.
+* Run atom editor, so this plug-in will get py.test from virtualenv
 
 ## Usage
 
