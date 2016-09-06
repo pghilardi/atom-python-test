@@ -4,8 +4,6 @@
 
 * Run py.tests tests on Atom.
 
-This project is on initial development. Feel free to contribute reporting bugs, improvements or creating pull requests.
-
 ## Requirements
 
 * You need py.test installed to use this package: 
@@ -35,3 +33,4 @@ When using virtualenv, the recommended workflow is:
 - [x] Format the output and separate the output for each test.
 - [ ] Add support to run all project tests.
 
+This project is on initial development. Feel free to contribute reporting bugs, improvements or creating pull requests.
