@@ -2,9 +2,18 @@ AtomPythonTestView = require './atom-python-test-view'
 {CompositeDisposable} = require 'atom'
 
 module.exports = AtomPythonTest =
+
   atomPythonTestView: null
+
   modalPanel: null
+
   subscriptions: null
+
+  config:
+    executeDocTests:
+      type: 'boolean'
+      default: false
+      title: 'Execute doc tests on test runs'
 
   activate: (state) ->
 
@@ -48,8 +57,13 @@ module.exports = AtomPythonTest =
 
     @testResultsFilename = @tmp.fileSync({prefix: 'results', keep : true, postfix: '.xml'});
 
+    executeDocTests = atom.config.get('atom-python-test.executeDocTests')
+
     command = 'python'
     args = ['-m', 'pytest', filePath, '--verbose', '--junit-xml=' + @testResultsFilename.name]
+
+    if executeDocTests
+      args.push '--doctest-modules'
 
     process = new BufferedProcess({command, args, stdout, exit})
 
