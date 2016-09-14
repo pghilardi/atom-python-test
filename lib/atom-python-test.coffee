@@ -84,8 +84,10 @@ module.exports = AtomPythonTest =
     # guarantee that the class is a Test class, not an utility one.
     reversedLines = buffer.lines[0...testLineNumber].reverse()
 
-    for line, classLineNumber in reversedLines
+    for line, i in reversedLines
       startIndex = line.search(class_re)
+
+      classLineNumber = testLineNumber - i - 1
 
       # We think that we have found a Test class, but this is guaranteed only if
       # the test indentation is greater than the class indentation.
