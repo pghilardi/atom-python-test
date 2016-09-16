@@ -14,6 +14,10 @@ module.exports = AtomPythonTest =
       type: 'boolean'
       default: false
       title: 'Execute doc tests on test runs'
+    additionalArgs:
+      type: 'string'
+      default: ''
+      title: 'Additional arguments for pytest command line'
 
   activate: (state) ->
 
@@ -64,6 +68,9 @@ module.exports = AtomPythonTest =
 
     if executeDocTests
       args.push '--doctest-modules'
+
+    additionalArgs = atom.config.get('atom-python-test.additionalArgs')
+    args = args.concat additionalArgs.split " "
 
     process = new BufferedProcess({command, args, stdout, exit})
 
