@@ -70,7 +70,8 @@ module.exports = AtomPythonTest =
       args.push '--doctest-modules'
 
     additionalArgs = atom.config.get('atom-python-test.additionalArgs')
-    args = args.concat additionalArgs.split " "
+    if additionalArgs
+      args = args.concat additionalArgs.split " "
 
     process = new BufferedProcess({command, args, stdout, exit})
 
