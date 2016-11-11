@@ -17,6 +17,7 @@ module.exports =
       @panel ?= atom.workspace.addBottomPanel(item: this)
       @panel.hide()
 
+    # TODO: edit this part with HTML to make the output colored
     addLine: (line) ->
       @message += line
       @find(".output").text(@message)
