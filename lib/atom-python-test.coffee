@@ -64,7 +64,7 @@ module.exports = AtomPythonTest =
     executeDocTests = atom.config.get('atom-python-test.executeDocTests')
 
     command = 'python'
-    args = ['-m', 'pytest', filePath, '--verbose', '--junit-xml=' + @testResultsFilename.name]
+    args = ['-m', 'pytest', filePath, '--junit-xml=' + @testResultsFilename.name]
 
     if executeDocTests
       args.push '--doctest-modules'

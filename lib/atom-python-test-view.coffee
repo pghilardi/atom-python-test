@@ -15,12 +15,24 @@ module.exports =
 
     initialize: ->
       @panel ?= atom.workspace.addBottomPanel(item: this)
+      @message = ""
       @panel.hide()
 
-    # TODO: edit this part with HTML to make the output colored
     addLine: (line) ->
-      @message += line
-      @find(".output").text(@message)
+      if  true == /.*\d+.failed.*(passed)?.in.*seconds.*/i.test(line)
+        array_o_lines = line.split("\n")
+        for l in array_o_lines
+          if l.indexOf("====") > -1 or l.indexOf("E") == 0
+            @message = "<span style='color: red'>" + l + "</span>"
+          else
+            @message = "<span style='color: white'>" + l + "</span>"
+          @find(".output").append(@message + "\n")
+      else if true == /.*\d+.passed.in.*seconds.*/i.test(line)
+        @message = "<span style='color: green'>" + line + "</span>"
+        @find(".output").append(@message)
+      else
+        @find(".output").append(line)
+
 
     clear: ->
       @message = ''
@@ -35,5 +47,6 @@ module.exports =
 
     toggle: ->
       @find(".output").height(300)
+      @find(".output").innerHTML = ""
       @addLine 'Running tests... \n \n'
       @panel.show()
