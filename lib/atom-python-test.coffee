@@ -37,8 +37,8 @@ module.exports = AtomPythonTest =
 
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-all-tests': => @runAllTests()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-all-tests-verbose': => @runAllTests(verbose=true)
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-test-under-cursor': => @runTestUnderCursor()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-all-tests-verbose': => @runAllTests(true)
 
   deactivate: ->
     @subscriptions.dispose()
