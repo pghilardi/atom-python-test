@@ -11,12 +11,27 @@ module.exports =
         @div class: 'btn-toolbar', outlet:'toolbar', =>
           @button outlet: 'closeBtn', class: 'btn inline-block-tight right', click: 'destroy', style: 'float: right', =>
             @span class: 'icon icon-x'
+          @button outlet: 'clearBtn', class: 'btn inline-block-tight right', click: 'clear', style: 'float: right', =>
+            @span class: 'icon icon-zap'
         @pre class: 'output', outlet: 'output'
 
     initialize: ->
       @panel ?= atom.workspace.addBottomPanel(item: this)
       @message = ""
       @panel.hide()
+
+    createTimestamp: ->
+      today = new Date
+      dd = today.getDate()
+      #The value returned by getMonth is an integer between 0 and 11, referring 0 to January, 1 to February, and so on.
+      mm = today.getMonth() + 1
+      yyyy = today.getFullYear()
+      if dd < 10
+        dd = '0' + dd
+      if mm < 10
+        mm = '0' + mm
+      today = mm + '-' + dd + '-' + yyyy
+      return today
 
     addLine: (line) ->
       if  true == /.*\d+.failed.*(passed)?.in.*seconds.*/i.test(line)
@@ -36,6 +51,10 @@ module.exports =
 
     clear: ->
       @message = ''
+      virtual_console = @find(".output")[0]
+      while virtual_console.firstChild
+        virtual_console.removeChild(virtual_console.firstChild)
+
 
     finish: ->
       console.log('finish')
@@ -47,6 +66,6 @@ module.exports =
 
     toggle: ->
       @find(".output").height(300)
-      @find(".output").innerHTML = ""
-      @addLine 'Running tests... \n \n'
+      @addLine @createTimestamp()
+      @addLine '\nRunning tests... \n \n'
       @panel.show()
