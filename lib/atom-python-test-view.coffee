@@ -12,7 +12,9 @@ module.exports =
           @button outlet: 'closeBtn', class: 'btn inline-block-tight right', click: 'destroy', style: 'float: right', =>
             @span class: 'icon icon-x'
           @button outlet: 'clearBtn', class: 'btn inline-block-tight right', click: 'clear', style: 'float: right', =>
-            @span class: 'icon icon-zap'
+            @span class: 'icon icon-trashcan'
+          @button outlet: 'clearBtn', class: 'btn inline-block-tight right', click: 'clear', style: 'float: right', =>
+            @span class: 'icon icon-history'
         @pre class: 'output', outlet: 'output'
         # TODO: create history button
 
