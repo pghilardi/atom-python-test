@@ -18,6 +18,15 @@ module.exports = AtomPythonTest =
       type: 'string'
       default: ''
       title: 'Additional arguments for pytest command line'
+    runVerbose:
+      type: 'boolean'
+      default: true
+      title: 'Run with verbose option'
+    # TODO: use this option for the coloured output feature
+    ouputColored:
+      type: 'boolean'
+      default: true
+      title: 'Color the ouput'
 
   activate: (state) ->
 
@@ -29,6 +38,7 @@ module.exports = AtomPythonTest =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-all-tests': => @runAllTests()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-test-under-cursor': => @runTestUnderCursor()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-all-tests-verbose': => @runAllTests(true)
 
   deactivate: ->
     @subscriptions.dispose()
@@ -37,7 +47,7 @@ module.exports = AtomPythonTest =
   serialize: ->
     atomPythonTestViewState: @atomPythonTestView.serialize()
 
-  executePyTest: (filePath) ->
+  executePyTest: (filePath, verbose=false) ->
     {BufferedProcess} = require 'atom'
 
     @tmp = require('tmp');
@@ -64,10 +74,14 @@ module.exports = AtomPythonTest =
     executeDocTests = atom.config.get('atom-python-test.executeDocTests')
 
     command = 'python'
-    args = ['-m', 'pytest', filePath, '--verbose', '--junit-xml=' + @testResultsFilename.name]
+    args = ['-m', 'pytest', filePath, '--junit-xml=' + @testResultsFilename.name]
 
     if executeDocTests
       args.push '--doctest-modules'
+
+    runVerbose = atom.config.get('atom-python-test.runVerbose')
+    if runVerbose or verbose
+      args.push '--verbose'
 
     additionalArgs = atom.config.get('atom-python-test.additionalArgs')
     if additionalArgs
@@ -117,8 +131,8 @@ module.exports = AtomPythonTest =
       filePath = filePath + '::' + testName
       @executePyTest(filePath)
 
-  runAllTests: ->
+  runAllTests: (verbose=false) ->
     editor = atom.workspace.getActivePaneItem()
     file = editor?.buffer.file
     filePath = file?.path
-    @executePyTest(filePath)
+    @executePyTest(filePath, verbose)
