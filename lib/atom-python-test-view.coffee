@@ -14,11 +14,13 @@ module.exports =
           @button outlet: 'clearBtn', class: 'btn inline-block-tight right', click: 'clear', style: 'float: right', =>
             @span class: 'icon icon-zap'
         @pre class: 'output', outlet: 'output'
+        # TODO: create history button
 
     initialize: ->
       @panel ?= atom.workspace.addBottomPanel(item: this)
       @message = ""
       @panel.hide()
+    # TODO: create history field to store previous results
 
     createTimestamp: ->
       today = new Date
@@ -33,6 +35,8 @@ module.exports =
       today = mm + '-' + dd + '-' + yyyy
       return today
 
+    # TODO: move html taggin to a separate function
+    # TODO: refactor the error coloring
     addLine: (line) ->
       if  true == /.*\d+.failed.*(passed)?.in.*seconds.*/i.test(line)
         array_o_lines = line.split("\n")
