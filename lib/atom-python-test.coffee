@@ -53,6 +53,7 @@ module.exports = AtomPythonTest =
       atomPythonTestView = AtomPythonTest.atomPythonTestView
 
       junitViewer = require('junit-viewer')
+      # TODO: check with parse junitViewer.xml
       parsedResults = junitViewer.parse(AtomPythonTest.testResultsFilename.name)
 
       if parsedResults.junit_info.tests.error > 0 and code != 0
