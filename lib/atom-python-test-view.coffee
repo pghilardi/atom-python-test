@@ -37,19 +37,26 @@ module.exports =
       today = mm + '-' + dd + '-' + yyyy
       return today
 
+    addSpanTag: (line, class_to_add = "") ->
+      if class_to_add == ""
+        new_line = "<span>" + line + "</span>"
+      else
+        new_line = "<span class='" + class_to_add + "'>" + line + "</span>"
+      return new_line
+
     # TODO: move html taggin to a separate function
     # TODO: refactor the error coloring
     addLine: (line) ->
-      if  true == /.*\d+.failed.*(passed)?.in.*seconds.*/i.test(line)
+      if line.indexOf("====") > -1 and true == /.*\d+.failed.*(passed)?.in.*seconds.*/i.test(line)
         array_o_lines = line.split("\n")
         for l in array_o_lines
           if l.indexOf("====") > -1 or l.indexOf("E") == 0
-            @message = "<span style='color: red'>" + l + "</span>"
+            @message = @addSpanTag(l, "failure-line")
           else
-            @message = "<span style='color: white'>" + l + "</span>"
+            @message = @addSpanTag(l, "error-text")
           @find(".output").append(@message + "\n")
       else if true == /.*\d+.passed.in.*seconds.*/i.test(line)
-        @message = "<span style='color: green'>" + line + "</span>"
+        @message = @addSpanTag(line, "success-line")
         @find(".output").append(@message)
       else
         @find(".output").append(line)
