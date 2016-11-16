@@ -22,11 +22,10 @@ module.exports = AtomPythonTest =
       type: 'boolean'
       default: true
       title: 'Run with verbose option'
-    # TODO: use this option for the coloured output feature
-    ouputColored:
+    outputColored:
       type: 'boolean'
-      default: true
-      title: 'Color the ouput'
+      default: false
+      title: 'Color the output'
 
   activate: (state) ->
 
@@ -57,7 +56,8 @@ module.exports = AtomPythonTest =
 
     stdout = (output) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
-      atomPythonTestView.addLine output
+      do_coloring = atom.config.get('atom-python-test.outputColored')
+      atomPythonTestView.addLine output, do_coloring
 
     exit = (code) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView

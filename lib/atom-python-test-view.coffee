@@ -52,24 +52,33 @@ module.exports =
       else if parts[1] == "PASSED"
         new_line += @addSpanTag(parts[1], "success-line")
       else
-        new_line += parts[1]
+        new_line = line
+      return new_line
+
+    # add yellow if "no tests"
+    colorLine: (line) ->
+      if line.indexOf("failed") > -1 or line.indexOf("E") == 0
+        new_line = @addSpanTag(line, "failure-line")
+      else if line.indexOf("passed") > -1
+        new_line = @addSpanTag(line, "success-line")
+      else
+        new_line = line
       return new_line
 
     # TODO: refactor the error coloring
     # TODO: add empty line after collected... and before FAILURES/x passed in
-    addLine: (lines) ->
+    addLine: (lines, do_coloring=false) ->
       for line in lines.split("\n")
         if line == ""
           continue
-        if line.indexOf("====") > -1
-          if line.indexOf("failed") > -1
-            @message = @addSpanTag(line, "failure-line")
-          else if line.indexOf("passed") > -1
-            @message = @addSpanTag(line, "success-line")
-        else if line.indexOf("FAILED") > -1 or line.indexOf("PASSED") > -1
-          @message = @colorStatus(line)
-        else
-          @message = line
+
+        @message = line
+        if do_coloring
+          if line.indexOf("====") > -1 or line.indexOf("E") == 0
+            @message = @colorLine(line)
+          else if line.indexOf("FAILED") > -1 or line.indexOf("PASSED") > -1
+            @message = @colorStatus(line)
+
         @find(".output").append(@message + "\n")
 
     clear: ->
