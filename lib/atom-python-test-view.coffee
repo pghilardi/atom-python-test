@@ -13,14 +13,14 @@ module.exports =
             @span class: 'icon icon-x'
           @button outlet: 'clearBtn', class: 'btn inline-block-tight right', click: 'clear', style: 'float: right', =>
             @span class: 'icon icon-trashcan'
-          @button outlet: 'clearBtn', class: 'btn inline-block-tight right', click: 'clear', style: 'float: right', =>
+          @button outlet: 'clearBtn', class: 'btn inline-block-tight right', click: 'showHistory', style: 'float: right', =>
             @span class: 'icon icon-history'
         @pre class: 'output', outlet: 'output'
-        # TODO: create history button
 
     initialize: ->
       @panel ?= atom.workspace.addBottomPanel(item: this)
       @message = ""
+      @history = ""
       @panel.hide()
     # TODO: create history field to store previous results
 
@@ -44,30 +44,39 @@ module.exports =
         new_line = "<span class='" + class_to_add + "'>" + line + "</span>"
       return new_line
 
-    # TODO: move html taggin to a separate function
-    # TODO: refactor the error coloring
-    addLine: (line) ->
-      if line.indexOf("====") > -1 and true == /.*\d+.failed.*(passed)?.in.*seconds.*/i.test(line)
-        array_o_lines = line.split("\n")
-        for l in array_o_lines
-          if l.indexOf("====") > -1 or l.indexOf("E") == 0
-            @message = @addSpanTag(l, "failure-line")
-          else
-            @message = @addSpanTag(l, "error-text")
-          @find(".output").append(@message + "\n")
-      else if true == /.*\d+.passed.in.*seconds.*/i.test(line)
-        @message = @addSpanTag(line, "success-line")
-        @find(".output").append(@message)
+    colorStatus: (line) ->
+      parts = line.split(" ")
+      new_line = parts[0] + " "
+      if parts[1] == "FAILED"
+        new_line += @addSpanTag(parts[1], "failure-line")
+      else if parts[1] == "PASSED"
+        new_line += @addSpanTag(parts[1], "success-line")
       else
-        @find(".output").append(line)
+        new_line += parts[1]
+      return new_line
 
+    # TODO: refactor the error coloring
+    # TODO: add empty line after collected... and before FAILURES/x passed in
+    addLine: (lines) ->
+      for line in lines.split("\n")
+        if line == ""
+          continue
+        if line.indexOf("====") > -1
+          if line.indexOf("failed") > -1
+            @message = @addSpanTag(line, "failure-line")
+          else if line.indexOf("passed") > -1
+            @message = @addSpanTag(line, "success-line")
+        else if line.indexOf("FAILED") > -1 or line.indexOf("PASSED") > -1
+          @message = @colorStatus(line)
+        else
+          @message = line
+        @find(".output").append(@message + "\n")
 
     clear: ->
       @message = ''
       virtual_console = @find(".output")[0]
       while virtual_console.firstChild
         virtual_console.removeChild(virtual_console.firstChild)
-
 
     finish: ->
       console.log('finish')
