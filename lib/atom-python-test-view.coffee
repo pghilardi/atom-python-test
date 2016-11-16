@@ -65,7 +65,6 @@ module.exports =
         new_line = line
       return new_line
 
-    # TODO: refactor the error coloring
     # TODO: add empty line after collected... and before FAILURES/x passed in
     addLine: (lines, do_coloring=false) ->
       for line in lines.split("\n")
