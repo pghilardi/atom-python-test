@@ -2,7 +2,7 @@
 
 ## Description
 
-* Run py.tests tests on Atom.
+* Run py.tests and unitest.TestCase tests on Atom.
 
 ## Requirements
 
