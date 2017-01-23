@@ -59,8 +59,6 @@ module.exports = AtomPythonTest =
       atomPythonTestView = AtomPythonTest.atomPythonTestView
 
       junitViewer = require('junit-viewer')
-      # TODO: check with parse junitViewer.parseXML
-      # TODO: try to read it with a request for json
       parsedResults = junitViewer.parse(AtomPythonTest.testResultsFilename.name)
 
       if parsedResults.junit_info.tests.error > 0 and code != 0
