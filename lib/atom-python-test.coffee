@@ -18,10 +18,6 @@ module.exports = AtomPythonTest =
       type: 'string'
       default: ''
       title: 'Additional arguments for pytest command line'
-    runVerbose:
-      type: 'boolean'
-      default: true
-      title: 'Run with verbose option'
     outputColored:
       type: 'boolean'
       default: false
@@ -81,8 +77,7 @@ module.exports = AtomPythonTest =
     if executeDocTests
       args.push '--doctest-modules'
 
-    runVerbose = atom.config.get('atom-python-test.runVerbose')
-    if runVerbose or verbose
+    if verbose
       args.push '--verbose'
 
     additionalArgs = atom.config.get('atom-python-test.additionalArgs')
