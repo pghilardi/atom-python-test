@@ -22,32 +22,33 @@ module.exports =
       new_text = "<span class=#{class_to_add}>#{text}</span>"
       return new_text
 
-    colorStatus: (line) ->
-      parts = line.split(" ")
-
-      if parts[1] == "FAILED"
-        colored_status = @addSpanTag(parts[1], class_to_add="failure-line")
-        new_line = parts[0] + " " + colored_status
-
-      else if parts[1] == "PASSED"
-        colored_status = @addSpanTag(parts[1], class_to_add="success-line")
-        new_line = parts[0] + " " + colored_status
-
-      else
-        new_line = line
+    colorStatus: (parts, class_to_add) ->
+      colored_status = @addSpanTag(parts[1], class_to_add)
+      new_line = parts[0] + " " + colored_status
 
       return new_line
 
     # TODO: add yellow if "no tests"
     colorLine: (line) ->
-      if line.indexOf("failed") > -1 or line.indexOf("E") == 0
+      new_line = line
+
+      if line.indexOf("====") > -1
+        if line.indexOf("failed") > -1
+          new_line = @addSpanTag(line, class_to_add="failure-line")
+
+        else if line.indexOf("passed") > -1
+          new_line = @addSpanTag(line, class_to_add="success-line")
+
+      else if line.indexOf("E") == 0
         new_line = @addSpanTag(line, class_to_add="failure-line")
 
-      else if line.indexOf("passed") > -1
-        new_line = @addSpanTag(line, class_to_add="success-line")
-
       else
-        new_line = line
+        parts = line.split(" ")
+        if parts[1] == "FAILED"
+          new_line = @colorStatus(parts, class_to_add="failure-line")
+
+        else if parts[1] == "PASSED"
+          new_line = @colorStatus(parts, class_to_add="success-line")
 
       return new_line
 
@@ -57,14 +58,10 @@ module.exports =
         if line == ""
           continue
 
-        @message = line
-
         if do_coloring
-          if line.indexOf("====") > -1 or line.indexOf("E") == 0
-            @message = @colorLine(line)
-
-          else if line.indexOf("FAILED") > -1 or line.indexOf("PASSED") > -1
-            @message = @colorStatus(line)
+          @message = @colorLine(line)
+        else
+          @message = line
 
         @find(".output").append(@message + "\n")
 
