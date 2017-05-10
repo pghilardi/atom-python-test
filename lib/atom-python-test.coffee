@@ -32,8 +32,8 @@ module.exports = AtomPythonTest =
 
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-all-tests': => @runAllTests()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-all-tests-verbose': => @runAllTests(verbose=true)
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-test-under-cursor': => @runTestUnderCursor()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:close-panel': => @closePanel()
 
   deactivate: ->
     @subscriptions.dispose()
@@ -42,7 +42,7 @@ module.exports = AtomPythonTest =
   serialize: ->
     atomPythonTestViewState: @atomPythonTestView.serialize()
 
-  executePyTest: (filePath, verbose=false) ->
+  executePyTest: (filePath) ->
     {BufferedProcess} = require 'atom'
 
     @tmp = require('tmp');
@@ -52,8 +52,8 @@ module.exports = AtomPythonTest =
 
     stdout = (output) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
-      do_coloring = atom.config.get('atom-python-test.outputColored')
-      atomPythonTestView.addLine output, do_coloring
+      doColoring = atom.config.get('atom-python-test.outputColored')
+      atomPythonTestView.addLine output, doColoring
 
     exit = (code) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
@@ -74,9 +74,6 @@ module.exports = AtomPythonTest =
 
     if executeDocTests
       args.push '--doctest-modules'
-
-    if verbose
-      args.push '--verbose'
 
     additionalArgs = atom.config.get('atom-python-test.additionalArgs')
     if additionalArgs
@@ -126,8 +123,11 @@ module.exports = AtomPythonTest =
       filePath = filePath + '::' + testName
       @executePyTest(filePath)
 
-  runAllTests: (verbose=false) ->
+  runAllTests: () ->
     editor = atom.workspace.getActivePaneItem()
     file = editor?.buffer.file
     filePath = file?.path
-    @executePyTest(filePath, verbose)
+    @executePyTest(filePath)
+
+  closePanel: ->
+      @atomPythonTestView.destroy()
