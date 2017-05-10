@@ -29,6 +29,7 @@ module.exports = AtomPythonTest =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-all-tests': => @runAllTests()
     @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:run-test-under-cursor': => @runTestUnderCursor()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'atom-python-test:close-panel': => @closePanel()
 
   deactivate: ->
     @subscriptions.dispose()
@@ -122,3 +123,6 @@ module.exports = AtomPythonTest =
     file = editor?.buffer.file
     filePath = file?.path
     @executePyTest(filePath)
+
+  closePanel: ->
+      @atomPythonTestView.destroy()

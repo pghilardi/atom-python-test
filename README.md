@@ -6,7 +6,7 @@
 
 ## Requirements
 
-* You need py.test installed to use this package: 
+* You need py.test installed to use this package:
 
     ```
     pip install pytest
@@ -22,6 +22,8 @@ When using virtualenv, the recommended workflow is:
 1) Running all tests ```(Ctrl + Alt + T)```
 
 2) Run test under cursor ```(Ctrl + Alt + C)```
+
+3) Hide the execution panel ```(Ctrl + Alt + H)```
 
 ![Run tests](https://cloud.githubusercontent.com/assets/1611808/14330216/ea1891e0-fc15-11e5-8190-696152c77c64.gif)
 
