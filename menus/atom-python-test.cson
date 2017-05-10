@@ -13,8 +13,8 @@
           'command': 'atom-python-test:run-all-tests'
         }
         {
-          'label': 'Run all tests (verbose)'
-          'command': 'atom-python-test:run-all-tests-verbose'
+          'label': 'Close panel'
+          'command': 'atom-python-test:close-panel'
         }
       ]
     }
@@ -28,6 +28,10 @@
         {
           'label': 'Run all tests'
           'command': 'atom-python-test:run-all-tests'
+        }
+        {
+          'label': 'Close panel'
+          'command': 'atom-python-test:close-panel'
         }
       ]
     ]
