@@ -18,6 +18,10 @@ module.exports = AtomPythonTest =
       type: 'string'
       default: ''
       title: 'Additional arguments for pytest command line'
+    outputColored:
+      type: 'boolean'
+      default: false
+      title: 'Color the output'
 
   activate: (state) ->
 
@@ -48,7 +52,8 @@ module.exports = AtomPythonTest =
 
     stdout = (output) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
-      atomPythonTestView.addLine output
+      doColoring = atom.config.get('atom-python-test.outputColored')
+      atomPythonTestView.addLine output, doColoring
 
     exit = (code) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
@@ -65,7 +70,7 @@ module.exports = AtomPythonTest =
     executeDocTests = atom.config.get('atom-python-test.executeDocTests')
 
     command = 'python'
-    args = ['-m', 'pytest', filePath, '--verbose', '--junit-xml=' + @testResultsFilename.name]
+    args = ['-m', 'pytest', filePath, '--junit-xml=' + @testResultsFilename.name]
 
     if executeDocTests
       args.push '--doctest-modules'
@@ -118,7 +123,7 @@ module.exports = AtomPythonTest =
       filePath = filePath + '::' + testName
       @executePyTest(filePath)
 
-  runAllTests: ->
+  runAllTests: () ->
     editor = atom.workspace.getActivePaneItem()
     file = editor?.buffer.file
     filePath = file?.path
