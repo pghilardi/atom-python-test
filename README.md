@@ -2,7 +2,7 @@
 
 ## Description
 
-* Run py.tests and unitest.TestCase tests on Atom.
+* Run py.tests and unitest.TestCase tests on Atom. 
 
 ## Requirements
 
@@ -15,7 +15,7 @@
 When using virtualenv, the recommended workflow is:
 
 * Activate your virtualenv on terminal.
-* Run atom editor, so this plug-in will get py.test from virtualenv
+* Run atom editor, so this plug-in will get py.test from virtualenv (or use atom-python-virtualenv plug-in).
 
 ## Usage
 
@@ -26,6 +26,8 @@ When using virtualenv, the recommended workflow is:
 3) Hide the execution panel ```(Ctrl + Alt + H)```
 
 ![Run tests](https://cloud.githubusercontent.com/assets/1611808/14330216/ea1891e0-fc15-11e5-8190-696152c77c64.gif)
+
+The plug-in supports to color the output: tests passed in green and failed in red and also supports to add more execution parameters in the settings.
 
 ## To-Do List
 
