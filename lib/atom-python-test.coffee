@@ -48,7 +48,7 @@ module.exports = AtomPythonTest =
     @tmp = require('tmp');
 
     @atomPythonTestView.clear()
-    @atomPythonTestView.toggle()
+    @atomPythonTestView.destroy()
 
     stdout = (output) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
@@ -57,6 +57,15 @@ module.exports = AtomPythonTest =
 
     exit = (code) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
+
+      if atomPythonTestView.message.includes("success-line") #pytest retrun succes
+        statutbar = document.getElementsByClassName('status-bar')[0]
+        statutbar.style.background = "green"
+        setTimeout ->
+          statutbar.style.background = "" # show green status bar while one second  on sucess
+        , 500
+      else
+        atomPythonTestView.toggle() #show panel if pytest is not success
 
       junitViewer = require('junit-viewer')
       parsedResults = junitViewer.parse(AtomPythonTest.testResultsFilename.name)
