@@ -96,25 +96,29 @@ module.exports = AtomPythonTest =
 
     # Starts searching backwards from the test line until we find a class. This
     # guarantee that the class is a Test class, not an utility one.
-    reversedLines = buffer.lines[0...testLineNumber].reverse()
+    reversedLines = buffer.getLines()[0...testLineNumber].reverse()
 
     for line, i in reversedLines
-      startIndex = line.search(class_re)
+      # startIndex = line.search(class_re)
+      isClassLine = line.startsWith("class")
 
       classLineNumber = testLineNumber - i - 1
 
       # We think that we have found a Test class, but this is guaranteed only if
       # the test indentation is greater than the class indentation.
       classIndentation = editor.indentationForBufferRow(classLineNumber)
-      if startIndex != -1 and testIndentation > classIndentation
-        endIndex = line.indexOf('(')
-        startIndex = startIndex + 6
-        className = line[startIndex...endIndex]
+      # if startIndex != -1 and testIndentation > classIndentation
+      if isClassLine and testIndentation > classIndentation
+        if line.includes('(')
+          endIndex = line.indexOf('(')
+        else
+          endIndex = line.indexOf(':')
+        className = line[6...endIndex]
         filePath = filePath + '::' + className
         break
 
     re = /test(\w*|\W*)/;
-    content = editor.buffer.lines[testLineNumber]
+    content = editor.buffer.getLines()[testLineNumber]
     endIndex = content.indexOf('(')
     startIndex = content.search(re)
     testName = content[startIndex...endIndex]
