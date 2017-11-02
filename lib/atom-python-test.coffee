@@ -59,10 +59,10 @@ module.exports = AtomPythonTest =
       atomPythonTestView = AtomPythonTest.atomPythonTestView
 
       if atomPythonTestView.message.includes("success-line") #pytest retrun succes
-        statutbar = document.getElementsByClassName('status-bar')[0]
-        statutbar.style.background = "green"
+        statusBar = document.getElementsByClassName('status-bar')[0]
+        statusBar.style.background = "green"
         setTimeout ->
-          statutbar.style.background = "" # show green status bar while one second  on sucess
+          statusBar.style.background = "" # show green status bar while one second  on sucess
         , 500
       else
         atomPythonTestView.toggle() #show panel if pytest is not success
