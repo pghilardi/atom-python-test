@@ -9,8 +9,12 @@
           'command': 'atom-python-test:run-test-under-cursor'
         }
         {
-          'label': 'Run all tests'
+          'label': 'Run all tests on page'
           'command': 'atom-python-test:run-all-tests'
+        }
+        {
+          'label': 'Run all project tests'
+          'command': 'atom-python-test:run-all-project-tests'
         }
         {
           'label': 'Close panel'
@@ -26,8 +30,12 @@
       'label': 'Atom Python Test'
       'submenu': [
         {
-          'label': 'Run all tests'
+          'label': 'Run all tests on page'
           'command': 'atom-python-test:run-all-tests'
+        }
+        {
+          'label': 'Run all project tests'
+          'command': 'atom-python-test:run-all-project-tests'
         }
         {
           'label': 'Close panel'
