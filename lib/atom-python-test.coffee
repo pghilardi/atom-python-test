@@ -54,17 +54,13 @@ module.exports = AtomPythonTest =
     @tmp = require('tmp');
 
     @atomPythonTestView.clear()
-<<<<<<< HEAD
 
     # display of panel depends on onlyShowPanelOnFailure
     @onlyShowPanelOnFailure = atom.config.get('atom-python-test.onlyShowPanelOnFailure')
     if @onlyShowPanelOnFailure
-          @atomPythonTestView.destroy()
+      @atomPythonTestView.destroy()
     else
       @atomPythonTestView.toggle()
-=======
-    @atomPythonTestView.destroy()
->>>>>>> 8807b0270b039a665cb2cd8fd0fb0a449bb4f1a1
 
     stdout = (output) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
@@ -74,11 +70,7 @@ module.exports = AtomPythonTest =
     exit = (code) =>
       atomPythonTestView = AtomPythonTest.atomPythonTestView
 
-<<<<<<< HEAD
       if @onlyShowPanelOnFailure and atomPythonTestView.message.includes("success-line") #pytest retrun succes
-=======
-      if atomPythonTestView.message.includes("success-line") #pytest retrun succes
->>>>>>> 8807b0270b039a665cb2cd8fd0fb0a449bb4f1a1
         statusBar = document.getElementsByClassName('status-bar')[0]
         statusBar.style.background = "green"
         setTimeout ->
