@@ -22,6 +22,10 @@ module.exports = AtomPythonTest =
       type: 'boolean'
       default: false
       title: 'Color the output'
+    onlyShowPanelOnFailure:
+      type: 'boolean'
+      default: false
+      title: 'Only show test panel on test failure'
 
   activate: (state) ->
 
@@ -50,15 +54,38 @@ module.exports = AtomPythonTest =
     @tmp = require('tmp');
 
     @atomPythonTestView.clear()
-    @atomPythonTestView.toggle()
+<<<<<<< HEAD
+
+    # display of panel depends on onlyShowPanelOnFailure
+    @onlyShowPanelOnFailure = atom.config.get('atom-python-test.onlyShowPanelOnFailure')
+    if @onlyShowPanelOnFailure
+          @atomPythonTestView.destroy()
+    else
+      @atomPythonTestView.toggle()
+=======
+    @atomPythonTestView.destroy()
+>>>>>>> 8807b0270b039a665cb2cd8fd0fb0a449bb4f1a1
 
     stdout = (output) ->
       atomPythonTestView = AtomPythonTest.atomPythonTestView
       doColoring = atom.config.get('atom-python-test.outputColored')
       atomPythonTestView.addLine output, doColoring
 
-    exit = (code) ->
+    exit = (code) =>
       atomPythonTestView = AtomPythonTest.atomPythonTestView
+
+<<<<<<< HEAD
+      if @onlyShowPanelOnFailure and atomPythonTestView.message.includes("success-line") #pytest retrun succes
+=======
+      if atomPythonTestView.message.includes("success-line") #pytest retrun succes
+>>>>>>> 8807b0270b039a665cb2cd8fd0fb0a449bb4f1a1
+        statusBar = document.getElementsByClassName('status-bar')[0]
+        statusBar.style.background = "green"
+        setTimeout ->
+          statusBar.style.background = "" # show green status bar while one second  on sucess
+        , 500
+      else
+        atomPythonTestView.toggle() #show panel if pytest is not success
 
       junitViewer = require('junit-viewer')
       parsedResults = junitViewer.parse(AtomPythonTest.testResultsFilename.name)
