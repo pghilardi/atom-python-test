@@ -10,22 +10,31 @@ module.exports = AtomPythonTest =
   subscriptions: null
 
   config:
-    executeDocTests:
-      type: 'boolean'
-      default: false
-      title: 'Execute doc tests on test runs'
+    pythonExecutableDirectory:
+      type: 'string'
+      default: ''
+      title: 'Path of python executable. May be set if you have a setting that is not supported by the plugin default configuration. Example: /usr/bin/python3'
+      order: 1
     additionalArgs:
       type: 'string'
       default: ''
       title: 'Additional arguments for pytest command line'
+      order: 2
+    executeDocTests:
+      type: 'boolean'
+      default: false
+      title: 'Execute doc tests on test runs'
+      order: 3
     outputColored:
       type: 'boolean'
       default: false
       title: 'Color the output'
+      order: 4
     onlyShowPanelOnFailure:
       type: 'boolean'
       default: false
       title: 'Only show test panel on test failure'
+      order: 5
 
   activate: (state) ->
 
@@ -90,7 +99,17 @@ module.exports = AtomPythonTest =
 
     executeDocTests = atom.config.get('atom-python-test.executeDocTests')
 
-    command = 'python'
+    pythonExecutableDirectory = atom.config.get('atom-python-test.pythonExecutableDirectory')
+
+    console.log(pythonExecutableDirectory)
+
+    if pythonExecutableDirectory and !!pythonExecutableDirectory
+      command = pythonExecutableDirectory
+    else
+      command = 'python'
+
+    console.log(command)
+
     args = ['-m', 'pytest', filePath, '--junit-xml=' + @testResultsFilename.name]
 
     if executeDocTests
