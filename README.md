@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/pghilardi/atom-python-test.svg?branch=master)](https://travis-ci.org/pghilardi/atom-python-test)
-
 ## Description
 
 * Run py.tests and unitest.TestCase tests on Atom. 
