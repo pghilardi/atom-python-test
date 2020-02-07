@@ -5,16 +5,39 @@
 @import "ui-variables";
 
 .atom-python-test {
+  overflow-y: scroll;
 }
 
-pre.output {
-  font-size: 12px;
+.tests {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
 }
 
-span.failure-line {
-  color: #FF1919;
+.tests tr {
+    border-bottom: 0.5px solid #383838;
+
 }
 
-span.success-line {
-  color: green;
+.tests td {
+    white-space:pre-wrap;
+}
+
+.tests thead {
+  background-color: #525452;
+  color: white;
+}
+
+.tests td {
+  // white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+td.failure-line {
+  color: #ed766b;
+}
+
+td.success-line {
+  color: #83e695;
 }
