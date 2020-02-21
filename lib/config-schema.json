@@ -1,0 +1,12 @@
+{
+  "pythonExecutableDirectory": {
+    "description": "Path of python executable. May be set if you have a setting that is not supported by the plugin default configuration. Example: /usr/bin/python3'",
+    "type": "string",
+    "default": "python"
+  },
+  "additionalArgs": {
+    "description": "Additional arguments for the pytest command",
+    "type": "string",
+    "default": ""
+  }
+}

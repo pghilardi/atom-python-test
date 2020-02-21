@@ -1,4 +1,3 @@
-# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
 'context-menu':
   'atom-text-editor': [
     {
@@ -9,16 +8,8 @@
           'command': 'atom-python-test:run-test-under-cursor'
         }
         {
-          'label': 'Run all tests on page'
+          'label': 'Run all tests on file'
           'command': 'atom-python-test:run-all-tests'
-        }
-        {
-          'label': 'Run all project tests'
-          'command': 'atom-python-test:run-all-project-tests'
-        }
-        {
-          'label': 'Close panel'
-          'command': 'atom-python-test:close-panel'
         }
       ]
     }
@@ -30,16 +21,8 @@
       'label': 'Atom Python Test'
       'submenu': [
         {
-          'label': 'Run all tests on page'
-          'command': 'atom-python-test:run-all-tests'
-        }
-        {
-          'label': 'Run all project tests'
-          'command': 'atom-python-test:run-all-project-tests'
-        }
-        {
-          'label': 'Close panel'
-          'command': 'atom-python-test:close-panel'
+          'label': 'Toggle tests results'
+          'command': 'atom-python-test:toggle-test-results'
         }
       ]
     ]

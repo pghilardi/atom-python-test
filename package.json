@@ -1,7 +1,7 @@
 {
   "name": "atom-python-test",
   "main": "./lib/atom-python-test",
-  "version": "0.10.0",
+  "version": "1.0.0",
   "description": "Run py.test tests using Python",
   "keywords": [
     "python",
@@ -16,7 +16,6 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
-    "atom-space-pen-views": "latest",
     "tmp": "*",
     "junit-viewer": "*"
   }
