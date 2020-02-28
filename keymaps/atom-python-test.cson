@@ -10,4 +10,4 @@
 'atom-workspace':
   'ctrl-alt-t': 'atom-python-test:run-all-tests'
   'ctrl-alt-c': 'atom-python-test:run-test-under-cursor'
-  'ctrl-alt-h': 'atom-python-test:close-panel'
+  'ctrl-alt-h': 'atom-python-test:toggle-test-results'
